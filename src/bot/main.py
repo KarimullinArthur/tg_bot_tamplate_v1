@@ -4,9 +4,9 @@ import logging
 import logging.handlers
 from aiogram import executor
 
-from loader import dp, scheduler
-from scheduler_jobs import schedule_jobs
-from handlers.user import main_menu
+from bot.loader import dp, scheduler
+from bot.scheduler_jobs import schedule_jobs
+from bot.handlers.user import main_menu
 
 
 def log_setup():
@@ -19,7 +19,7 @@ def log_setup():
     log_handler.setFormatter(formatter)
     logger = logging.getLogger()
     logger.addHandler(log_handler)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
 
 main_menu.register_client_main_menu(dp)

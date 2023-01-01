@@ -13,7 +13,7 @@ class Database:
 
         self.conn.autocommit = True
 
-        with open('sql/create_tables.sql') as file:
+        with open('db/sql/create_tables.sql') as file:
             self.cur.execute(file.read())
 
     def add_user(self, tg_id, ref_link, date_reg):
@@ -30,6 +30,25 @@ class Database:
 
         result = self.cur.fetchall()
         return bool(len(result))
+
+    def add_ref_link(self, name_link):
+        self.cur.execute("INSERT INTO ref_links(name) VALUES(%s)",
+                         (name_link,))
+
+    def remove_ref_link(self, name_link):
+        self.cur.execute("DELETE FROM ref_links WHERE name = %s",
+                         (name_link,))
+
+    def get_ref_links(self):
+        self.cur.execute("SELECT name FROM ref_links")
+
+        result_sql = self.cur.fetchall()
+
+        result = []
+        for i in result_sql:
+            result.append(i[0])
+
+        return result
 
 
 db = Database('dbname=tmp_v1 user=arthur')

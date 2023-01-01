@@ -4,14 +4,14 @@ import logging
 import logging.handlers
 from aiogram import executor
 
-from bot.loader import dp, scheduler
-from bot.scheduler_jobs import schedule_jobs
-from bot.handlers.user import main_menu
+from loader import dp, scheduler
+from scheduler_jobs import schedule_jobs
+from handlers.user import main_menu
 
 
 def log_setup():
     logging.getLogger('apscheduler.executors.default').propagate = False
-    log_handler = logging.handlers.WatchedFileHandler('../../logs/main.log')
+    log_handler = logging.handlers.WatchedFileHandler('../logs/main.log')
     formatter = logging.Formatter(
         '%(asctime)s | %(levelname)s | %(message)s',
         '%b %d %H:%M:%S')

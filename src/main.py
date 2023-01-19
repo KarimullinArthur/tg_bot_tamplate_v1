@@ -19,7 +19,7 @@ def log_setup():
     log_handler.setFormatter(formatter)
     logger = logging.getLogger()
     logger.addHandler(log_handler)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
 
 
 main_menu.register_client_main_menu(dp)

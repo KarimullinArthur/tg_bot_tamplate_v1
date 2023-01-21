@@ -24,7 +24,8 @@ async def start(message: types.Message, state: FSMContext):
                             get_datetime())
 
         await message.answer(texts.start,
-                             reply_markup=keyboards.main_menu())
+                             reply_markup=keyboards.main_menu(
+                                 message.from_user.id))
         await UserMain.main_menu.set()
 
 

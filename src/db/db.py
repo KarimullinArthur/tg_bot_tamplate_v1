@@ -50,5 +50,11 @@ class Database:
 
         return result
 
+    def get_admins_tg_id(self):
+        self.cur.execute("SELECT tg_id FROM admins")
+
+        return self.cur.fetchall()[0]
+
 
 db = Database('dbname=tmp_v1 user=arthur')
+print(db.get_admins_tg_id())

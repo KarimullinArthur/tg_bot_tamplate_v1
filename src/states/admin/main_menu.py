@@ -1,5 +1,5 @@
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 
-class UserMain(StatesGroup):
+class AdminMain(StatesGroup):
     main_menu = State()

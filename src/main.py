@@ -6,7 +6,8 @@ from aiogram import executor
 
 from loader import dp, scheduler
 from scheduler_jobs import schedule_jobs
-from handlers.user import main_menu
+from handlers import client
+from handlers import admin
 
 
 def log_setup():
@@ -22,7 +23,8 @@ def log_setup():
     logger.setLevel(logging.INFO)
 
 
-main_menu.register_client_main_menu(dp)
+client.main_menu.register_client_main_menu(dp)
+admin.main_menu.register_admin_panel(dp)
 
 
 async def on_startup(dp):

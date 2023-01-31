@@ -10,8 +10,8 @@ class Admin(BoundFilter):
     def __init__(self, is_admin):
         self.is_admin = is_admin
 
-    async def check(self, message: types.Message):
-        if message.from_user.id == 1151974450:
+    async def check(self, message: types.Message) -> bool:
+        if message.from_user.id == db.get_admins_tg_id():
             return True
 
         else:

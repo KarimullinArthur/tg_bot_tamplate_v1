@@ -57,4 +57,4 @@ class Database:
 
 
 db = Database('dbname=tmp_v1 user=arthur')
-print(db.get_admins_tg_id())
+# print(db.get_admins_tg_id())

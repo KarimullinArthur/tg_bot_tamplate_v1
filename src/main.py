@@ -1,8 +1,9 @@
 import time
-
 import logging
 import logging.handlers
+
 from aiogram import executor
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
 
 from loader import dp, scheduler
 from scheduler_jobs import schedule_jobs
@@ -21,6 +22,9 @@ def log_setup():
     logger = logging.getLogger()
     logger.addHandler(log_handler)
     logger.setLevel(logging.INFO)
+
+
+dp.middleware.setup(LoggingMiddleware())
 
 
 client.main_menu.register_client_main_menu(dp)

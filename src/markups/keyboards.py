@@ -7,7 +7,8 @@ from loader import db
 
 
 text_button_first = '1'
-text_button_admin_menu = 'adm'
+text_button_admin_menu = 'Админ панель'
+text_button_back = 'Назад'
 
 text_button_stat = 'Stat'
 
@@ -29,7 +30,9 @@ def admin_menu():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
     stat = KeyboardButton(text_button_stat)
+    back = KeyboardButton(text_button_back)
 
     keyboard.row(stat)
+    keyboard.add(back)
 
     return keyboard

@@ -7,7 +7,6 @@ from markups import keyboards
 from markups import texts
 from states.admin.main_menu import AdminMain
 from states.client.main_menu import ClientMain
-from utils.datetime import get_datetime
 
 
 async def sing_in_to_admin_panel(message: types.Message, state: FSMContext):

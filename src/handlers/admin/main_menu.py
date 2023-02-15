@@ -10,7 +10,7 @@ from states.client.main_menu import ClientMain
 
 
 async def sing_in_to_admin_panel(message: types.Message, state: FSMContext):
-    await message.answer(texts.start,
+    await message.answer(message.text,
                          reply_markup=keyboards.admin_menu())
     await AdminMain.main_menu.set()
 

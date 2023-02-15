@@ -7,9 +7,7 @@ from aiogram.contrib.middlewares.logging import LoggingMiddleware
 
 from loader import dp, scheduler
 from scheduler_jobs import schedule_jobs
-from handlers import client
-from handlers import admin
-from handlers import backwards
+from handlers import register_handlers
 
 
 def log_setup():
@@ -28,9 +26,7 @@ def log_setup():
 dp.middleware.setup(LoggingMiddleware())
 
 
-client.main_menu.register_client_main_menu(dp)
-admin.main_menu.register_admin_panel(dp)
-backwards.register_back(dp)
+register_handlers(dp)
 
 
 async def on_startup(dp):

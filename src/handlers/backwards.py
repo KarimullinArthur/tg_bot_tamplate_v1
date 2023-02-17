@@ -16,6 +16,11 @@ async def back(message: types.Message, state: FSMContext):
                                 message.from_user.id))
         await ClientMain.main_menu.set()
 
+    if current_state == 'AdditionalFuncs:main_menu':
+        await message.reply(message.text,
+                            reply_markup=keyboards.admin_menu())
+        await AdminMain.main_menu.set()
+
 
 def register_back(dp: Dispatcher):
     dp.register_message_handler(back, Text(keyboards.text_button_back),

@@ -9,12 +9,12 @@ from states.admin.main_menu import AdminMain
 from states.client.main_menu import ClientMain
 
 
-async def distribution(message: types.Message, state: FSMContext):
+async def stat(message: types.Message, state: FSMContext):
     await message.answer(message.text)
     await AdminMain.main_menu.set()
 
 
-def register_distribution(dp: Dispatcher):
-    dp.register_message_handler(distribution,
-                                Text(keyboards.text_button_distribution),
+def register_stat(dp: Dispatcher):
+    dp.register_message_handler(stat,
+                                Text(keyboards.text_button_stat),
                                 state=AdminMain)

@@ -32,10 +32,12 @@ def admin_menu():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
     stat = KeyboardButton(text_button_stat)
-    back = KeyboardButton(text_button_back)
     distribution = KeyboardButton(text_button_distribution)
+    additional_func = KeyboardButton(text_button_additional_func)
+    back = KeyboardButton(text_button_back)
 
     keyboard.row(distribution, stat)
+    keyboard.add(additional_func)
     keyboard.add(back)
 
     return keyboard

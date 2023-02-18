@@ -31,6 +31,10 @@ class Database:
         result = self.cur.fetchall()
         return bool(len(result))
 
+    def set_user_activity(self, tg_id, status):
+        self.cur.execute(
+                f"UPDATE users SET live = {status} WHERE tg_id = {tg_id}")
+
     def add_ref_link(self, name_link):
         self.cur.execute("INSERT INTO ref_links(name) VALUES(%s)",
                          (name_link,))

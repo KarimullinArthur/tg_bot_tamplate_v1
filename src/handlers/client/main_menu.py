@@ -21,6 +21,8 @@ async def start(message: types.Message, state: FSMContext):
         else:
             db.add_user(message.from_user.id, '',
                         get_datetime())
+    else:
+        db.set_user_activity(message.from_user.id, True)
 
     await message.answer(texts.start,
                          reply_markup=keyboards.main_menu(

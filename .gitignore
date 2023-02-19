@@ -145,3 +145,7 @@ dmypy.json
 cython_debug/
 
 *.db
+
+# My notes
+
+#note.md

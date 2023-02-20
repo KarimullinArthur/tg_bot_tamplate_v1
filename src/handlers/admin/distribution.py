@@ -29,7 +29,8 @@ async def distribution_message(message: types.Message, state: FSMContext):
 
 async def distribution_keyboard(message: types.Message, state: FSMContext):
     if message.text == keyboards.text_button_yes:
-        await message.answer("Название кнопки?")
+        await message.answer("Название кнопки?",
+                             reply_markup=keyboards.cancel())
         await Distribution.button_name.set()
 
     else:

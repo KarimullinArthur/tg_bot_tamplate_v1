@@ -4,7 +4,6 @@ from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram import types
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.exceptions import BotBlocked
-from aiogram.utils.exceptions import BadRequest
 
 from loader import db
 from loader import bot
@@ -51,26 +50,24 @@ async def distribution_button_name(message: types.Message, state: FSMContext):
 
 
 async def distribution_button_url(message: types.Message, state: FSMContext):
-    try:
-        async with state.proxy() as data:
-            data['button_url'] = message.text
+    async with state.proxy() as data:
+        data['button_url'] = message.text
 
-            await bot.copy_message(message.from_user.id, message.chat.id,
-                                   data['message_id'],
-                                   reply_markup=keyboards.custom_url_markup(
-                                       data['button_text'], data['button_url'])
-                                   )
-            await bot.send_message(message.from_user.id, "Отправляем?",
-                                   reply_to_message_id=data['message_id'],
-                                   reply_markup=keyboards.check_yes_no())
-        await Distribution.next()
-
-    except BadRequest:
-        await message.reply("Это не ссылка")
+        await bot.copy_message(message.from_user.id, message.chat.id,
+                               data['message_id'],
+                               reply_markup=keyboards.custom_url_markup(
+                                   data['button_text'], data['button_url'])
+                               )
+        await bot.send_message(message.from_user.id, "Отправляем?",
+                               reply_to_message_id=data['message_id'],
+                               reply_markup=keyboards.check_yes_no())
+    await Distribution.next()
 
 
 async def distribution_check(message: types.Message, state: FSMContext):
     if message.text == keyboards.text_button_yes:
+        await message.answer('Ok')
+
         await AdminMain.main_menu.set()
         await message.answer('Рассылка началась',
                              reply_markup=keyboards.admin_menu())
@@ -82,28 +79,28 @@ async def distribution_check(message: types.Message, state: FSMContext):
             for tg_id in db.get_all_tg_id():
                 try:
                     if data['button_text'] != '':
-                        await bot.copy_message(tg_id,
+                        await bot.copy_message(tg_id[0],
                                                message.from_user.id,
                                                data['message_id'],
                                                reply_markup=keyboards.custom_url_markup(
                                                     data['button_text'],
                                                     data['button_url']))
                     else:
-                        await bot.copy_message(tg_id,
+                        await bot.copy_message(tg_id[0],
                                                message.from_user.id,
                                                data['message_id'])
 
-                    print(f'Suc {tg_id}')
+                    print(f'Suc {tg_id[0]}')
                     suc_send += 1
                     await asyncio.sleep(1)
 
                 except BotBlocked as e:
                     fail_send += 1
-                    print(f'Err {tg_id} {e}')
+                    print(f'Err {tg_id[0]} {e}')
 
                 except:
                     fail_send += 1
-                    print(f'Err {tg_id}')
+                    print(f'Err {tg_id[0]}')
 
             data['button_text'] = ''
             data['button_url'] = ''
@@ -112,9 +109,6 @@ async def distribution_check(message: types.Message, state: FSMContext):
     else:
         await message.answer('Отменил', reply_markup=keyboards.admin_menu())
         await AdminMain.main_menu.set()
-
-        data['button_text'] = ''
-        data['button_url'] = ''
 
 
 async def distribution_send(message: types.Message, state: FSMContext):

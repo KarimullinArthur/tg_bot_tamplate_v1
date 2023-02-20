@@ -31,6 +31,14 @@ class Database:
         result = self.cur.fetchall()
         return bool(len(result))
 
+    def get_all_tg_id(self):
+        self.cur.execute("SELECT tg_id FROM users")
+
+        result = self.cur.fetchall()
+        result = list(map(lambda x: x[0], result))
+
+        return result
+
     def set_user_activity(self, tg_id, status):
         self.cur.execute(
                 f"UPDATE users SET live = {status} WHERE tg_id = {tg_id}")
@@ -60,5 +68,6 @@ class Database:
         return self.cur.fetchall()[0]
 
 
-db = Database('dbname=tmp_v1 user=arthur')
+# db = Database('dbname=tmp_v1 user=arthur')
 # print(db.get_admins_tg_id())
+# print(db.get_all_tg_id())

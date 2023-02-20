@@ -14,6 +14,40 @@ text_button_stat = '📊Статистика'
 text_button_distribution = '📢Рассылка'
 text_button_additional_func = '⚙️Дополнительно'
 
+text_button_cancel = '🚫Отмена'
+text_button_yes = '✅Да'
+text_button_no = '🚫Нет'
+
+
+def cancel():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    cancel = KeyboardButton(text_button_cancel)
+    keyboard.add(cancel)
+
+    return keyboard
+
+
+def check_yes_no(text_yes=text_button_yes, text_no=text_button_no):
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    yes = KeyboardButton(text_yes)
+    no = KeyboardButton(text_no)
+
+    keyboard.add(yes)
+    keyboard.add(no)
+
+    return keyboard
+
+
+def custom_url_markup(text, url):
+    keyboard = InlineKeyboardMarkup(resize_keyboard=True)
+
+    button = InlineKeyboardButton(text, url=url)
+    keyboard.add(button)
+
+    return keyboard
+
 
 def main_menu(user_id):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)

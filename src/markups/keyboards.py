@@ -7,12 +7,17 @@ from loader import db
 
 
 text_button_first = 'Кнопка'
-text_button_admin_menu = 'Админ панель'
+text_button_admin_menu = "Админ панель"
 text_button_back = '🔙Назад'
 
 text_button_stat = '📊Статистика'
 text_button_distribution = '📢Рассылка'
 text_button_additional_func = '⚙️Дополнительно'
+
+text_button_sponsors = '📈Спонсерка'
+text_button_referrals = '👥Рефка'
+text_button_admins = '🔑Админы'
+text_button_export_db = '📦Экспорт БД'
 
 text_button_cancel = '🚫Отмена'
 text_button_yes = '✅Да'
@@ -80,8 +85,14 @@ def admin_menu():
 def additional_func():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
+    sponsors = KeyboardButton(text_button_sponsors)
+    referrals = KeyboardButton(text_button_referrals)
+    admins = KeyboardButton(text_button_admins)
+    export_db = KeyboardButton(text_button_export_db)
     back = KeyboardButton(text_button_back)
 
+    keyboard.row(sponsors, referrals)
+    keyboard.row(admins, export_db)
     keyboard.add(back)
 
     return keyboard

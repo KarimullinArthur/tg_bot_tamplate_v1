@@ -31,8 +31,11 @@ class Database:
         result = self.cur.fetchall()
         return bool(len(result))
 
-    def get_all_tg_id(self):
-        self.cur.execute("SELECT tg_id FROM users")
+    def get_all_tg_id(self, only_live=False):
+        if only_live:
+            self.cur.execute("SELECT tg_id FROM users WHERE live = True")
+        else:
+            self.cur.execute("SELECT tg_id FROM users")
 
         result = self.cur.fetchall()
         result = list(map(lambda x: x[0], result))

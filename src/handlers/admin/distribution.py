@@ -13,6 +13,10 @@ from states.admin.main_menu import AdminMain
 from states.admin.distribution import Distribution
 
 
+async def check(message: types.Message, state: FSMContext):
+    pass
+
+
 async def distribution(message: types.Message, state: FSMContext):
     await message.answer("Что отправляем?", reply_markup=keyboards.cancel())
     await Distribution.message.set()
@@ -21,10 +25,25 @@ async def distribution(message: types.Message, state: FSMContext):
 async def distribution_message(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['message_id'] = message.message_id
+        try:
+            if dict(message)['reply_markup']:
+                data['button_text'] = dict(message.reply_markup.inline_keyboard[0][0])['text']
+                data['button_url'] = dict(message.reply_markup.inline_keyboard[0][0])['url']
 
-    await message.answer("Добавить кнопку?",
-                         reply_markup=keyboards.check_yes_no())
-    await Distribution.next()
+                await bot.copy_message(message.from_user.id, message.chat.id,
+                                       data['message_id'],
+                                       reply_markup=keyboards.custom_url_markup(
+                                           data['button_text'], data['button_url'])
+                                       )
+                await bot.send_message(message.from_user.id, "Отправляем?",
+                                       reply_to_message_id=data['message_id'],
+                                       reply_markup=keyboards.check_yes_no())
+                await Distribution.check.set()
+
+        except Exception:
+            await message.answer("Добавить кнопку?",
+                                 reply_markup=keyboards.check_yes_no())
+            await Distribution.next()
 
 
 async def distribution_keyboard(message: types.Message, state: FSMContext):
@@ -77,11 +96,11 @@ async def distribution_check(message: types.Message, state: FSMContext):
         suc_send = 0
         fail_send = 0
 
-        await message.answer("Рассылка началась",
+        await message.answer("📢Рассылка началась",
                              reply_markup=keyboards.admin_menu())
 
         async with state.proxy() as data:
-            for tg_id in db.get_all_tg_id():
+            for tg_id in db.get_all_tg_id(only_live=True):
                 try:
                     if data['button_text'] != '':
                         await bot.copy_message(tg_id,
@@ -98,27 +117,21 @@ async def distribution_check(message: types.Message, state: FSMContext):
                     suc_send += 1
                     await asyncio.sleep(1)
 
-                except BotBlocked as e:
+                except BotBlocked:
                     fail_send += 1
-                    print(f"Err {tg_id} {e}")
                     db.set_user_activity(tg_id, False)
 
-                except Exception as e:
+                except Exception:
                     fail_send += 1
-                    print(f"Err {tg_id} {e}")
 
-                print(f"Suc {tg_id}")
-
-            print(f"suc_send = {suc_send}\nfail_send = {fail_send}")
-            await message.answer(
-                    f'''Рассылка закончилась
+            await bot.send_message(message.from_user.id,
+                                   f'''✅Рассылка закончилась\n
 Получили {suc_send}
-Не удалось {fail_send}
-Всего {suc_send+fail_send}''',
-                    reply_markup=keyboards.admin_menu())
+Не удалось {fail_send}''',
+                                   reply_to_message_id=message.message_id-2)
+
             data['button_text'] = ''
             data['button_url'] = ''
-
     else:
         await message.answer('Отменил', reply_markup=keyboards.admin_menu())
         await AdminMain.main_menu.set()

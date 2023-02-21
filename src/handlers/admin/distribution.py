@@ -101,6 +101,7 @@ async def distribution_check(message: types.Message, state: FSMContext):
                 except BotBlocked as e:
                     fail_send += 1
                     print(f"Err {tg_id} {e}")
+                    db.set_user_activity(tg_id, False)
 
                 except Exception as e:
                     fail_send += 1

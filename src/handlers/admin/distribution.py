@@ -136,10 +136,6 @@ async def distribution_check(message: types.Message, state: FSMContext):
         data['button_url'] = ''
 
 
-async def distribution_send(message: types.Message, state: FSMContext):
-    await message.answer(message.text)
-
-
 def register_distribution(dp: Dispatcher):
     dp.register_message_handler(distribution,
                                 Text(keyboards.text_button_distribution),
@@ -148,22 +144,22 @@ def register_distribution(dp: Dispatcher):
     dp.register_message_handler(distribution_message,
                                 content_types=['text', 'photo', 'video',
                                                'animation'],
-                                state=Distribution.message)
+                                state=Distribution.message, is_admin=True)
 
     dp.register_message_handler(distribution_keyboard,
                                 Text([keyboards.text_button_yes,
                                      keyboards.text_button_no]),
-                                state=Distribution.keyboard)
+                                state=Distribution.keyboard, is_admin=True)
 
     dp.register_message_handler(distribution_button_name,
                                 content_types='text',
-                                state=Distribution.button_name)
+                                state=Distribution.button_name, is_admin=True)
 
     dp.register_message_handler(distribution_button_url,
                                 content_types='text',
-                                state=Distribution.button_url)
+                                state=Distribution.button_url, is_admin=True)
 
     dp.register_message_handler(distribution_check,
                                 Text([keyboards.text_button_yes,
                                      keyboards.text_button_no]),
-                                state=Distribution.check)
+                                state=Distribution.check, is_admin=True)

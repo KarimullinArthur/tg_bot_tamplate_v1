@@ -2,6 +2,7 @@ from aiogram.dispatcher.filters import BoundFilter
 from aiogram import types
 
 from loader import db
+from loader import dp
 
 
 class Admin(BoundFilter):
@@ -16,3 +17,6 @@ class Admin(BoundFilter):
 
         else:
             return False
+
+
+dp.filters_factory.bind(Admin)

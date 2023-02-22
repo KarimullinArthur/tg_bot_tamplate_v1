@@ -6,7 +6,6 @@ from aiogram.types import InlineKeyboardButton
 from loader import db
 
 
-text_button_first = 'Кнопка'
 text_button_admin_menu = "Админ панель"
 text_button_back = '🔙Назад'
 
@@ -57,10 +56,8 @@ def custom_url_markup(text, url):
 def main_menu(user_id):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    but1 = KeyboardButton(text_button_first)
     admin_menu = KeyboardButton(text_button_admin_menu)
 
-    keyboard.row(but1)
     if user_id in db.get_admins_tg_id():
         keyboard.add(admin_menu)
 

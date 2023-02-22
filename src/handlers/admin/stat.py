@@ -17,4 +17,4 @@ async def stat(message: types.Message, state: FSMContext):
 def register_stat(dp: Dispatcher):
     dp.register_message_handler(stat,
                                 Text(keyboards.text_button_stat),
-                                state=AdminMain)
+                                state=AdminMain, is_admin=True)

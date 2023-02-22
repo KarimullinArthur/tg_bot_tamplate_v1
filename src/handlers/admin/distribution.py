@@ -13,10 +13,6 @@ from states.admin.main_menu import AdminMain
 from states.admin.distribution import Distribution
 
 
-async def check(message: types.Message, state: FSMContext):
-    pass
-
-
 async def distribution(message: types.Message, state: FSMContext):
     await message.answer("Что отправляем?", reply_markup=keyboards.cancel())
     await Distribution.message.set()

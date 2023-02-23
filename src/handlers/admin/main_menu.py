@@ -28,5 +28,5 @@ def register_admin_panel(dp: Dispatcher):
                                 state=ClientMain, is_admin=True)
 
     dp.register_message_handler(additional_funcs,
-                                Text(keyboards.text_button_additional_func),
+                                Text(keyboards.text_button_additional_funcs),
                                 state=AdminMain, is_admin=True)

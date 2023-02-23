@@ -9,11 +9,11 @@ from filters.admin import Admin
 from states.admin.main_menu import AdminMain, AdditionalFuncs
 
 
-async def export_db(message: types.Message, state: FSMContext):
+async def sponsers(message: types.Message, state: FSMContext):
     await message.answer(message.text)
 
 
-def register_additional_funcs(dp: Dispatcher):
-    dp.register_message_handler(export_db,
-                                Text(keyboards.text_button_export_db),
+def register_sponsers(dp: Dispatcher):
+    dp.register_message_handler(sponsers,
+                                Text(keyboards.text_button_sponsors),
                                 state=AdditionalFuncs, is_admin=True)

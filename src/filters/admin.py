@@ -12,7 +12,7 @@ class Admin(BoundFilter):
         self.is_admin = is_admin
 
     async def check(self, message: types.Message) -> bool:
-        if message.from_user.id == db.get_admins_tg_id():
+        if message.from_user.id in db.get_admins_tg_id():
             return True
 
         else:

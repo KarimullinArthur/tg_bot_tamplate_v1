@@ -139,7 +139,7 @@ async def distribution_check(message: types.Message, state: FSMContext):
 def register_distribution(dp: Dispatcher):
     dp.register_message_handler(distribution,
                                 Text(keyboards.text_button_distribution),
-                                state=AdminMain)
+                                state=AdminMain, is_admin=True)
 
     dp.register_message_handler(distribution_message,
                                 content_types=['text', 'photo', 'video',

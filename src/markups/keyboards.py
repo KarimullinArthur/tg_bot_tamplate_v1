@@ -11,10 +11,10 @@ text_button_back = '🔙Назад'
 
 text_button_stat = '📊Статистика'
 text_button_distribution = '📢Рассылка'
-text_button_additional_func = '⚙️Дополнительно'
+text_button_additional_funcs = '⚙️Дополнительно'
 
 text_button_sponsors = '📈Спонсерка'
-text_button_referrals = '👥Рефка'
+text_button_referral_links = '👥Рефка'
 text_button_admins = '🔑Админы'
 text_button_export_db = '📦Экспорт БД'
 
@@ -69,7 +69,7 @@ def admin_menu():
 
     stat = KeyboardButton(text_button_stat)
     distribution = KeyboardButton(text_button_distribution)
-    additional_func = KeyboardButton(text_button_additional_func)
+    additional_func = KeyboardButton(text_button_additional_funcs)
     back = KeyboardButton(text_button_back)
 
     keyboard.row(distribution, stat)
@@ -83,12 +83,12 @@ def additional_func():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
     sponsors = KeyboardButton(text_button_sponsors)
-    referrals = KeyboardButton(text_button_referrals)
+    referral_links = KeyboardButton(text_button_referral_links)
     admins = KeyboardButton(text_button_admins)
     export_db = KeyboardButton(text_button_export_db)
     back = KeyboardButton(text_button_back)
 
-    keyboard.row(sponsors, referrals)
+    keyboard.row(sponsors, referral_links)
     keyboard.row(admins, export_db)
     keyboard.add(back)
 

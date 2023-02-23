@@ -9,11 +9,11 @@ from filters.admin import Admin
 from states.admin.main_menu import AdminMain, AdditionalFuncs
 
 
-async def export_db(message: types.Message, state: FSMContext):
+async def admins_management(message: types.Message, state: FSMContext):
     await message.answer(message.text)
 
 
-def register_additional_funcs(dp: Dispatcher):
-    dp.register_message_handler(export_db,
-                                Text(keyboards.text_button_export_db),
+def register_admins_management(dp: Dispatcher):
+    dp.register_message_handler(admins_management,
+                                Text(keyboards.text_button_admins),
                                 state=AdditionalFuncs, is_admin=True)

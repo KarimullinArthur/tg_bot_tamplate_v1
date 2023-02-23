@@ -10,8 +10,14 @@ from states.client.main_menu import ClientMain
 
 
 async def stat(message: types.Message, state: FSMContext):
-    await message.answer(message.text)
-    await AdminMain.main_menu.set()
+    all = len(db.get_all_tg_id())
+    live = len(db.get_all_tg_id(only_live=True))
+    dead = all - live
+    await message.answer(f'''
+#Статистика\n
+👥Живых {live}
+💀Мёртвых {dead}
+📊Всего {all}''')
 
 
 def register_stat(dp: Dispatcher):

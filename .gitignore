@@ -145,6 +145,7 @@ dmypy.json
 cython_debug/
 
 *.db
+backups/backup.txt
 
 # My notes
 

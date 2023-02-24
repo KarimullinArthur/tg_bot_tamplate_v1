@@ -2,11 +2,8 @@ from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram import types
 from aiogram.dispatcher.filters import Text
 
-from loader import db
 from markups import keyboards
-from markups import texts
-from filters.admin import Admin
-from states.admin.main_menu import AdminMain, AdditionalFuncs
+from states.admin.additional_funcs import AdditionalFuncs
 from utils.export_db import backup_db, export_txt
 
 

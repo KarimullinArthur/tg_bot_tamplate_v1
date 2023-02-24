@@ -18,6 +18,10 @@ text_button_referral_links = '👥Рефка'
 text_button_admins = '🔑Админы'
 text_button_export_db = '📦Экспорт БД'
 
+text_button_create_link = "➕Добавить ссылку"
+text_button_delete_link = "➖Удалить ссылку"
+text_button_my_links = "📄Мои ссылки"
+
 text_button_cancel = '🚫Отмена'
 text_button_yes = '✅Да'
 text_button_no = '🚫Нет'
@@ -91,5 +95,31 @@ def additional_func():
     keyboard.row(sponsors, referral_links)
     keyboard.row(admins, export_db)
     keyboard.add(back)
+
+    return keyboard
+
+
+def referral_links():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    create_link = KeyboardButton(text_button_create_link)
+    delete_link = KeyboardButton(text_button_delete_link)
+    my_links = KeyboardButton(text_button_my_links)
+    back = KeyboardButton(text_button_back)
+
+    keyboard.row(delete_link, create_link)
+    keyboard.add(my_links)
+    keyboard.add(back)
+
+    return keyboard
+
+
+def referral_links_list():
+    keyboard = InlineKeyboardMarkup(resize_keyboard=True)
+
+    for name in db.get_ref_links():
+        link = InlineKeyboardButton(name, callback_data=name)
+
+        keyboard.add(link)
 
     return keyboard

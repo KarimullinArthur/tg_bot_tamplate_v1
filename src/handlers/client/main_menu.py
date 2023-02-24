@@ -14,7 +14,7 @@ async def start(message: types.Message, state: FSMContext):
         start_command = message.text
         ref_link = str(start_command[7:])
 
-        if str(ref_link) in db.get_ref_links():
+        if ref_link in db.get_ref_links():
             db.add_user(message.from_user.id, ref_link,
                         get_datetime())
 

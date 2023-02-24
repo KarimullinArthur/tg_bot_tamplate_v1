@@ -61,9 +61,16 @@ class Database:
 
         result = []
         for i in result_sql:
-            result.append(i[0])
+            result.append(i[0].strip())
 
         return result
+
+    def get_count_user_ref_link(self, name_link):
+        self.cur.execute("SELECT COUNT(id) FROM users WHERE ref_link = %s",
+                         (name_link,))
+
+        result = self.cur.fetchone()
+        return result[0]
 
     def get_admins_tg_id(self):
         self.cur.execute("SELECT tg_id FROM admins")

@@ -6,7 +6,8 @@ from loader import db
 from markups import keyboards
 from markups import texts
 from filters.admin import Admin
-from states.admin.main_menu import AdminMain, AdditionalFuncs
+from states.admin.main_menu import AdminMain
+from states.admin.additional_funcs import AdditionalFuncs
 
 
 async def admins_management(message: types.Message, state: FSMContext):

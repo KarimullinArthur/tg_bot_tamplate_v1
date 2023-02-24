@@ -7,25 +7,27 @@ from loader import bot
 from states.admin.main_menu import AdminMain
 from states.client.main_menu import ClientMain
 from states.admin.distribution import Distribution
+from states.admin.additional_funcs import AdditionalFuncs
+from states.admin.referral_links import ReferralLinks
 
 
 async def back(message: types.Message, state: FSMContext):
     current_state = await state.get_state()
 
     if current_state == 'AdminMain:main_menu':
-        await message.reply(message.text,
-                            reply_markup=keyboards.main_menu(
+        await message.answer(message.text,
+                             reply_markup=keyboards.main_menu(
                                 message.from_user.id))
         await ClientMain.main_menu.set()
 
     if current_state == 'AdditionalFuncs:main_menu':
-        await message.reply(message.text,
-                            reply_markup=keyboards.admin_menu())
+        await message.answer(message.text,
+                             reply_markup=keyboards.admin_menu())
         await AdminMain.main_menu.set()
 
     if current_state == 'Distribution:message':
-        await message.reply(message.text,
-                            reply_markup=keyboards.admin_menu())
+        await message.answer(message.text,
+                             reply_markup=keyboards.admin_menu())
         await AdminMain.main_menu.set()
 
     if current_state in ('Distribution:button_name',
@@ -39,6 +41,16 @@ async def back(message: types.Message, state: FSMContext):
             data['button_text'] = ''
             data['button_url'] = ''
         await Distribution.check.set()
+
+    if current_state == 'ReferralLinks:main_menu':
+        await message.answer(message.text,
+                             reply_markup=keyboards.additional_func())
+        await AdditionalFuncs.main_menu.set()
+
+    if current_state == 'CreateLink:name':
+        await message.answer(message.text,
+                             reply_markup=keyboards.referral_links())
+        await ReferralLinks.main_menu.set()
 
 
 def register_back(dp: Dispatcher):

@@ -15,17 +15,21 @@ async def referral_links(message: types.Message, state: FSMContext):
 
 
 async def create_link(message: types.Message, state: FSMContext):
-    await message.answer("Введи название ссылки",
+    await message.answer("Введи название ссылки\n(A-z, -, _ )",
                          reply_markup=keyboards.cancel())
     await CreateLink.name.set()
 
 
 async def get_name_for_create_link(message: types.Message, state: FSMContext):
-    db.add_ref_link(message.text)
-    await message.answer(f'''Ссылка создана вот она
+    if len(message.text) > 25:
+        await message.answer("Название ссылки не должно привышать 25 символов")
+
+    else:
+        db.add_ref_link(message.text)
+        await message.answer(f'''Ссылка создана вот она
 https://t.me/{config.BOT_NAME}?start={message.text}''',
-                         reply_markup=keyboards.referral_links())
-    await ReferralLinks.main_menu.set()
+                             reply_markup=keyboards.referral_links())
+        await ReferralLinks.main_menu.set()
 
 
 async def delete_link(message: types.Message, state: FSMContext):

@@ -5,6 +5,7 @@ from aiogram.dispatcher.filters import Text
 from loader import db
 from markups import keyboards
 from markups import texts
+from filters.sponsors import Sponsor
 from states.client.main_menu import ClientMain
 from utils.datetime import get_datetime
 
@@ -32,4 +33,4 @@ async def start(message: types.Message, state: FSMContext):
 
 def register_client_main_menu(dp: Dispatcher):
     dp.register_message_handler(start, commands='start', state='*',
-                                chat_type='private')
+                                chat_type='private', check_sponsor=True)

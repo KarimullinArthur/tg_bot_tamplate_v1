@@ -22,6 +22,10 @@ text_button_create_link = "➕Добавить ссылку"
 text_button_delete_link = "➖Удалить ссылку"
 text_button_my_links = "📄Мои ссылки"
 
+text_button_add_sponsor = "➕Добавить канал"
+text_button_delete_sponsor = "➖Удалить канал"
+text_button_sponsors_list = "📄Текущие спонсоры"
+
 text_button_cancel = '🚫Отмена'
 text_button_yes = '✅Да'
 text_button_no = '🚫Нет'
@@ -121,5 +125,32 @@ def referral_links_list():
         link = InlineKeyboardButton(name, callback_data=name)
 
         keyboard.add(link)
+
+    return keyboard
+
+
+def sponsors():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    add_channel = KeyboardButton(text_button_add_sponsor)
+    remove_channel = KeyboardButton(text_button_delete_sponsor)
+    sponsors_list = KeyboardButton(text_button_sponsors_list)
+    back = KeyboardButton(text_button_back)
+
+    keyboard.row(remove_channel, add_channel)
+    keyboard.add(sponsors_list)
+    keyboard.add(back)
+
+    return keyboard
+
+
+def sponsors_list():
+    keyboard = InlineKeyboardMarkup(resize_keyboard=True)
+
+    for sponsor in db.get_sponsors():
+        sponsor = InlineKeyboardButton(sponsor['name'],
+                                       callback_data=sponsor['name'])
+
+        keyboard.add(sponsor)
 
     return keyboard

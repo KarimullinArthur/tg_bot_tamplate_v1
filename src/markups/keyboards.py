@@ -26,6 +26,9 @@ text_button_add_sponsor = "➕Добавить канал"
 text_button_delete_sponsor = "➖Удалить канал"
 text_button_sponsors_list = "📄Текущие спонсоры"
 
+text_button_subscribe = '➕Подписаться'
+text_button_check = '✅Проверить'
+
 text_button_cancel = '🚫Отмена'
 text_button_yes = '✅Да'
 text_button_no = '🚫Нет'
@@ -152,5 +155,19 @@ def sponsors_list():
                                        callback_data=sponsor['name'])
 
         keyboard.add(sponsor)
+
+    return keyboard
+
+
+def subscribe_to_sponsors():
+    keyboard = InlineKeyboardMarkup(resize_keyboard=True)
+
+    check = InlineKeyboardButton(text_button_check, callback_data='check_subs')
+
+    for sponsor in db.get_sponsors():
+        channel = InlineKeyboardButton(sponsor['name'], sponsor['link'])
+        keyboard.add(channel)
+
+    keyboard.add(check)
 
     return keyboard

@@ -72,15 +72,15 @@ class Database:
         result = self.cur.fetchone()
         return result[0]
 
-    def add_sponsor(self, tg_id, name):
-        self.cur.execute("INSERT INTO sponsors(tg_id, name) VALUES(%s, %s)",
-                         (tg_id, name))
+    def add_sponsor(self, tg_id, link, name):
+        self.cur.execute("INSERT INTO sponsors(tg_id, link, name) VALUES(%s, %s, %s)",
+                         (tg_id, link, name))
 
     def delete_sponsor(self, name):
         self.cur.execute(f"DELETE FROM sponsors WHERE name = {name}")
 
     def get_sponsors(self):
-        self.cur.execute("SELECT (tg_id, name) FROM sponsors")
+        self.cur.execute("SELECT (tg_id, link, name) FROM sponsors")
 
         result_sql = self.cur.fetchall()
 
@@ -90,7 +90,8 @@ class Database:
             list = seq.split(',')
             dic = {
                     'tg_id': list[0],
-                    'name': list[1]
+                    'link': list[1],
+                    'name': list[2]
             }
             result.append(dic)
 
@@ -102,8 +103,8 @@ class Database:
         return self.cur.fetchall()[0]
 
 
-# db = Database('dbname=tmp_v1 user=arthur')
+db = Database('dbname=tmp_v1 user=arthur')
 # print(db.get_admins_tg_id())
 # print(db.get_all_tg_id())
-# print(db.add_sponsor(-1001716969411, 'test2'))
+# print(db.add_sponsor(-1001716969411, 'https://t.me/+VJe4Ym4fNhBkNmZi', 'test2'))
 # print(db.get_sponsors())

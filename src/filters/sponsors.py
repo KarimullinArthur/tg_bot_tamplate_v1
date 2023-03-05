@@ -11,21 +11,20 @@ class Sponsor(BoundFilter):
     def __init__(self, check_sponsor):
         self.check_sponsor = check_sponsor
 
-    async def check(self, message: types.Message) -> bool:
-        try:
-            member = dict(await bot.get_chat_member(user_id=message.from_user.id,
-                                                    chat_id=db.get_sponsors()[0]['tg_id']))
-            await message.reply(member)
-            if member['status'] == 'left':
+    async def check(self, message: types.Message):
+        for sponsor in db.get_sponsors():
+            try:
+                member = dict(await bot.get_chat_member(user_id=message.from_user.id,
+                                                        chat_id=sponsor['tg_id']))
+                if member['status'] == 'left':
+                    await message.reply('no')
+                    return False
+
+            except BadRequest:
                 await message.reply('no')
                 return False
-            else:
-                await message.reply('yes')
-                return True
 
-        except BadRequest:
-            await message.reply('no')
-            return False
+        return True
 
 
 dp.filters_factory.bind(Sponsor)

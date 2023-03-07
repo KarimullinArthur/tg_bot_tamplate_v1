@@ -6,14 +6,14 @@ from aiogram.types import InlineKeyboardButton
 from loader import db
 
 
-text_button_admin_menu = "Админ панель"
+text_button_admin_menu = "🔑Админ панель"
 text_button_back = '🔙Назад'
 
 text_button_stat = '📊Статистика'
 text_button_distribution = '📢Рассылка'
 text_button_additional_funcs = '⚙️Дополнительно'
 
-text_button_sponsors = '📈Спонсерка'
+text_button_sponsors = '📈Обязка'
 text_button_referral_links = '👥Рефка'
 text_button_admins = '🔑Админы'
 text_button_export_db = '📦Экспорт БД'
@@ -24,7 +24,7 @@ text_button_my_links = "📄Мои ссылки"
 
 text_button_add_sponsor = "➕Добавить канал"
 text_button_delete_sponsor = "➖Удалить канал"
-text_button_sponsors_list = "📄Текущие спонсоры"
+text_button_sponsors_list = "📄Текущие каналы"
 
 text_button_subscribe = '➕Подписаться'
 text_button_check = '✅Проверить'

@@ -100,8 +100,8 @@ def register_refferal_links(dp: Dispatcher):
                                        state=DeleteLink.name, is_admin=True)
 
     dp.register_message_handler(delete_link_check,
-                                Text([keyboards.text_button_yes,
-                                      keyboards.text_button_no]),
+                                Text((keyboards.text_button_yes,
+                                      keyboards.text_button_no)),
                                 state=DeleteLink.check, is_admin=True)
 
     dp.register_message_handler(my_links,

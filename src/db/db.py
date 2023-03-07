@@ -77,7 +77,7 @@ class Database:
                          (tg_id, link, name))
 
     def delete_sponsor(self, name):
-        self.cur.execute(f"DELETE FROM sponsors WHERE name = {name}")
+        self.cur.execute(f"DELETE FROM sponsors WHERE name = '{name}'")
 
     def get_sponsors(self):
         self.cur.execute("SELECT (tg_id, link, name) FROM sponsors")

@@ -6,9 +6,9 @@ class Sponsors(StatesGroup):
 
 
 class AddSponsor(StatesGroup):
-    name = State()
-    link = State()
     tg_id = State()
+    link = State()
+    name = State()
 
 
 class DeleteSponsor(StatesGroup):

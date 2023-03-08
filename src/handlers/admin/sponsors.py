@@ -1,3 +1,5 @@
+import re
+
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram import types
 from aiogram.dispatcher.filters import Text, ForwardedMessageFilter, Regexp
@@ -20,11 +22,15 @@ async def add_sponsor(message: types.Message, state: FSMContext):
 
 
 async def get_tg_id_for_add_sponsor(message: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        data['tg_id'] = message.text
-    await message.answer("Введите ссылку на канал",
-                         reply_markup=keyboards.cancel())
-    await AddSponsor.next()
+    if re.match('-\d{0,9}$', message.text):
+        async with state.proxy() as data:
+            data['tg_id'] = message.text
+        await message.answer("Введите ссылку на канал",
+                             reply_markup=keyboards.cancel())
+        await AddSponsor.next()
+    else:
+        await message.reply("Это не ID",
+                            reply_markup=keyboards.cancel())
 
 
 async def get_tg_id_for_add_sponsor_forward(message: types.Message,

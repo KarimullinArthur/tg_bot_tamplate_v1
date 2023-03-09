@@ -22,7 +22,7 @@ async def add_sponsor(message: types.Message, state: FSMContext):
 
 
 async def get_tg_id_for_add_sponsor(message: types.Message, state: FSMContext):
-    if re.match('-\d{0,9}$', message.text):
+    if re.match('-\d+$', message.text):
         async with state.proxy() as data:
             data['tg_id'] = message.text
         await message.answer("Введите ссылку на канал",
@@ -92,7 +92,7 @@ async def sponsors_list(message: types.Message, state: FSMContext):
         await message.answer("Нет ни одного канала")
     else:
         await message.answer(message.text,
-                             reply_markup=keyboards.sponsors_list())
+                             reply_markup=keyboards.sponsors_list(url=True))
 
 
 def register_sponsors(dp: Dispatcher):
@@ -104,13 +104,13 @@ def register_sponsors(dp: Dispatcher):
                                 Text(keyboards.text_button_add_sponsor),
                                 state=Sponsors.main_menu, is_admin=True)
 
-    dp.register_message_handler(get_tg_id_for_add_sponsor,
-                                content_types='text', state=AddSponsor.tg_id,
-                                is_admin=True)
-
     dp.register_message_handler(get_tg_id_for_add_sponsor_forward,
                                 content_types='text', state=AddSponsor.tg_id,
                                 is_forwarded=True, is_admin=True)
+
+    dp.register_message_handler(get_tg_id_for_add_sponsor,
+                                content_types='text', state=AddSponsor.tg_id,
+                                is_admin=True)
 
     dp.register_message_handler(get_link_for_add_sponsor,
                                 content_types='text', state=AddSponsor.link,

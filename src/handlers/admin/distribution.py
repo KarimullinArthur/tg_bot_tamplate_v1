@@ -142,13 +142,13 @@ def register_distribution(dp: Dispatcher):
                                 state=AdminMain, is_admin=True)
 
     dp.register_message_handler(distribution_message,
-                                content_types=['text', 'photo', 'video',
-                                               'animation'],
+                                content_types=('text', 'photo', 'video',
+                                               'animation'),
                                 state=Distribution.message, is_admin=True)
 
     dp.register_message_handler(distribution_keyboard,
-                                Text([keyboards.text_button_yes,
-                                     keyboards.text_button_no]),
+                                Text((keyboards.text_button_yes,
+                                     keyboards.text_button_no)),
                                 state=Distribution.keyboard, is_admin=True)
 
     dp.register_message_handler(distribution_button_name,
@@ -160,6 +160,6 @@ def register_distribution(dp: Dispatcher):
                                 state=Distribution.button_url, is_admin=True)
 
     dp.register_message_handler(distribution_check,
-                                Text([keyboards.text_button_yes,
-                                     keyboards.text_button_no]),
+                                Text((keyboards.text_button_yes,
+                                     keyboards.text_button_no)),
                                 state=Distribution.check, is_admin=True)

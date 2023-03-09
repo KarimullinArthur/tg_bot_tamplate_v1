@@ -147,12 +147,17 @@ def sponsors():
     return keyboard
 
 
-def sponsors_list():
+def sponsors_list(url=False):
     keyboard = InlineKeyboardMarkup(resize_keyboard=True)
 
     for sponsor in db.get_sponsors():
-        sponsor = InlineKeyboardButton(sponsor['name'],
-                                       callback_data=sponsor['name'])
+        if url:
+            sponsor = InlineKeyboardButton(sponsor['name'],
+                                           callback_data=sponsor['name'],
+                                           url=sponsor['link'])
+        else:
+            sponsor = InlineKeyboardButton(sponsor['name'],
+                                           callback_data=sponsor['name'])
 
         keyboard.add(sponsor)
 

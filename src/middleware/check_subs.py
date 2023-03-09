@@ -9,7 +9,7 @@ async def check_subs(message: types.Message):
         member = dict(await bot.get_chat_member(user_id=message.chat.id,
                                                 chat_id=sponsor['tg_id']))
         if member['status'] in ('left', 'kicked'):
-            await message.reply('no',
+            await message.reply("Вы не подписаны",
                                 reply_markup=keyboards.subscribe_to_sponsors())
             return False
 

@@ -130,8 +130,8 @@ def register_sponsors(dp: Dispatcher):
                                        state='*', is_admin=True)
 
     dp.register_message_handler(delete_sponsor_check,
-                                Text([keyboards.text_button_yes,
-                                     keyboards.text_button_no]),
+                                Text((keyboards.text_button_yes,
+                                     keyboards.text_button_no)),
                                 state=DeleteSponsor.check, is_admin=True)
 
     dp.register_message_handler(sponsors_list,

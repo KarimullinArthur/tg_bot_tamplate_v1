@@ -14,7 +14,6 @@ class Admin(BoundFilter):
     async def check(self, message: types.Message) -> bool:
         if message.from_user.id in db.get_admins_tg_id():
             return True
-
         else:
             return False
 

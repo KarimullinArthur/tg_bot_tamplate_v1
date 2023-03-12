@@ -26,6 +26,10 @@ text_button_add_sponsor = "➕Добавить канал"
 text_button_delete_sponsor = "➖Удалить канал"
 text_button_sponsors_list = "📄Текущие каналы"
 
+text_button_add_admin = "➕Добавить админа"
+text_button_remove_admin = "➖Удалить админа"
+text_button_admin_list = "👥Текущие админы"
+
 text_button_subscribe = '➕Подписаться'
 text_button_check = '✅Проверить'
 
@@ -160,6 +164,37 @@ def sponsors_list(url=False):
                                            callback_data=sponsor['name'])
 
         keyboard.add(sponsor)
+
+    return keyboard
+
+
+def admin_management():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    add_admin = KeyboardButton(text_button_add_admin)
+    remove_admin = KeyboardButton(text_button_remove_admin)
+    admin_list = KeyboardButton(text_button_admin_list)
+    back = KeyboardButton(text_button_back)
+
+    keyboard.row(remove_admin, add_admin)
+    keyboard.add(admin_list)
+    keyboard.add(back)
+
+    return keyboard
+
+
+def admin_list(url=False):
+    keyboard = InlineKeyboardMarkup(resieze_keyboard=True)
+
+    for admin in db.get_admins_tg_id():
+        if url:
+            admin_button = InlineKeyboardButton(admin,
+                                                url=f'tg://user?id={admin}')
+
+        else:
+            admin_button = InlineKeyboardButton(admin, callback_data=admin)
+
+        keyboard.add(admin_button)
 
     return keyboard
 

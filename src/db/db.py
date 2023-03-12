@@ -100,11 +100,16 @@ class Database:
     def get_admins_tg_id(self):
         self.cur.execute("SELECT tg_id FROM admins")
 
-        return self.cur.fetchall()[0]
+        result = self.cur.fetchall()
+        result = list(map(lambda x: x[0], result))
+
+        return result
+
+    def add_admin(self, tg_id):
+        self.cur.execute("INSERT INTO admins (tg_id) VALUES (%s)", (tg_id,))
+
+    def remove_admin(self, tg_id):
+        self.cur.execute(f"DELETE FROM admins WHERE tg_id = {tg_id}")
 
 
-db = Database('dbname=tmp_v1 user=arthur')
-# print(db.get_admins_tg_id())
-# print(db.get_all_tg_id())
-# print(db.add_sponsor(-1001716969411, 'https://t.me/+VJe4Ym4fNhBkNmZi', 'test2'))
-# print(db.get_sponsors())
+#db = Database('dbname=tmp_v1 user=arthur')

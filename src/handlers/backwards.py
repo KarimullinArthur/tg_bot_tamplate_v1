@@ -10,6 +10,7 @@ from states.admin.distribution import Distribution
 from states.admin.additional_funcs import AdditionalFuncs
 from states.admin.referral_links import ReferralLinks
 from states.admin.sponsors import Sponsors
+from states.admin.admin_management import AdminManagement
 
 
 async def back(message: types.Message, state: FSMContext):
@@ -38,7 +39,8 @@ async def back(message: types.Message, state: FSMContext):
             data['button_url'] = ''
         await Distribution.check.set()
 
-    if current_state in ('ReferralLinks:main_menu', 'Sponsors:main_menu'):
+    if current_state in ('ReferralLinks:main_menu', 'Sponsors:main_menu',
+                         'AdminManagement:main_menu'):
         await message.answer(message.text,
                              reply_markup=keyboards.additional_func())
         await AdditionalFuncs.main_menu.set()
@@ -52,6 +54,12 @@ async def back(message: types.Message, state: FSMContext):
                          'AddSponsor:name', 'DeleteSponsor:name'):
         await message.answer(message.text, reply_markup=keyboards.sponsors())
         await Sponsors.main_menu.set()
+
+    if current_state in ('AddAdmin:tg_id', 'RemoveAdmin:tg_id',
+                         'RemoveAdmin:check'):
+        await message.answer(message.text,
+                             reply_markup=keyboards.admin_management())
+        await AdminManagement.main_menu.set()
 
 
 def register_back(dp: Dispatcher):

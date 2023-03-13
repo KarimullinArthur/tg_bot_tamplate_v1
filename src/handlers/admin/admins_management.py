@@ -2,13 +2,11 @@ import re
 
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram import types
-from aiogram.dispatcher.filters import Text, ForwardedMessageFilter
+from aiogram.dispatcher.filters import Text
 
+from filters.admin import Admin
 from loader import db
 from markups import keyboards
-from markups import texts
-from filters.admin import Admin
-from states.admin.main_menu import AdminMain
 from states.admin.additional_funcs import AdditionalFuncs
 from states.admin.admin_management import AdminManagement
 from states.admin.admin_management import AddAdmin, RemoveAdmin
@@ -37,7 +35,8 @@ async def get_tg_id_for_add_admin_forward(message: types.Message,
 async def get_tg_id_for_add_admin(message: types.Message, state: FSMContext):
     if re.match('\d+', message.text):
         db.add_admin(message.text)
-        await message.reply('Готово', reply_markup=keyboards.admin_management())
+        await message.reply('Готово',
+                            reply_markup=keyboards.admin_management())
         await AdminManagement.main_menu.set()
     else:
         await message.reply("Это не ID")
@@ -51,11 +50,14 @@ async def remove_admin(message: types.Message, state: FSMContext):
 
 async def get_tg_id_for_remove_admin(callback: types.callback_query,
                                      state: FSMContext):
-    async with state.proxy() as data:
-        data['delete_admin_tg_id'] = callback.data
-    await callback.message.answer('Удаляем?',
-                                  reply_markup=keyboards.check_yes_no())
-    await RemoveAdmin.next()
+    if callback.message.chat.id == int(callback.data):
+        await callback.message.reply("Нельзя удалить самого себя!")
+    else:
+        async with state.proxy() as data:
+            data['delete_admin_tg_id'] = callback.data
+        await callback.message.answer('Удаляем?',
+                                      reply_markup=keyboards.check_yes_no())
+        await RemoveAdmin.next()
 
 
 async def remove_admin_check(message: types.Message, state: FSMContext):

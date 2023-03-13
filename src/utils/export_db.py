@@ -14,5 +14,5 @@ def export_txt():
     for x in db.get_all_tg_id():
         _list.append(f"{x}\n")
 
-    with open('../backups/backup.txt', 'w') as file:
+    with open('../backups/export.txt', 'w') as file:
         file.writelines(_list)

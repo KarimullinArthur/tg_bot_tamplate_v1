@@ -2,7 +2,7 @@ import re
 
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram import types
-from aiogram.dispatcher.filters import Text, ForwardedMessageFilter, Regexp
+from aiogram.dispatcher.filters import Text
 
 from loader import db
 from markups import keyboards
@@ -83,7 +83,7 @@ async def delete_sponsor_check(message: types.Message, state: FSMContext):
             db.delete_sponsor(data['delete_channel_name'])
             await message.answer("Готово", reply_markup=keyboards.sponsors())
     else:
-        await message.answer("Cancel", reply_markup=keyboards.sponsors())
+        await message.answer("Отменил", reply_markup=keyboards.sponsors())
     await Sponsors.main_menu.set()
 
 
@@ -109,16 +109,13 @@ def register_sponsors(dp: Dispatcher):
                                 is_forwarded=True, is_admin=True)
 
     dp.register_message_handler(get_tg_id_for_add_sponsor,
-                                content_types='text', state=AddSponsor.tg_id,
-                                is_admin=True)
+                                content_types='text', state=AddSponsor.tg_id)
 
     dp.register_message_handler(get_link_for_add_sponsor,
-                                content_types='text', state=AddSponsor.link,
-                                is_admin=True)
+                                content_types='text', state=AddSponsor.link)
 
     dp.register_message_handler(get_name_for_add_sponsor,
-                                content_types='text', state=AddSponsor.name,
-                                is_admin=True)
+                                content_types='text', state=AddSponsor.name)
 
     dp.register_message_handler(delete_sponsor,
                                 Text(keyboards.text_button_delete_sponsor),
@@ -127,12 +124,12 @@ def register_sponsors(dp: Dispatcher):
     dp.register_callback_query_handler(delete_sponsor_inline,
                                        text=tuple(map(lambda x: x['name'],
                                                   db.get_sponsors())),
-                                       state='*', is_admin=True)
+                                       state='*')
 
     dp.register_message_handler(delete_sponsor_check,
                                 Text((keyboards.text_button_yes,
                                      keyboards.text_button_no)),
-                                state=DeleteSponsor.check, is_admin=True)
+                                state=DeleteSponsor.check)
 
     dp.register_message_handler(sponsors_list,
                                 Text(keyboards.text_button_sponsors_list),

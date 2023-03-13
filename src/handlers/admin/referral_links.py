@@ -97,12 +97,12 @@ def register_refferal_links(dp: Dispatcher):
 
     dp.register_callback_query_handler(delete_link_inline,
                                        text=db.get_ref_links(),
-                                       state=DeleteLink.name, is_admin=True)
+                                       state=DeleteLink.name)
 
     dp.register_message_handler(delete_link_check,
                                 Text((keyboards.text_button_yes,
                                       keyboards.text_button_no)),
-                                state=DeleteLink.check, is_admin=True)
+                                state=DeleteLink.check)
 
     dp.register_message_handler(my_links,
                                 Text(keyboards.text_button_my_links),

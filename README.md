@@ -24,5 +24,5 @@ Min Telegram Tamplate v1
 [Настройка сервера](./crib_for_setting_server.md)
 
 Readmap
-- [] Вебхук
-- [] Локали
+- [ ] Вебхук
+- [ ] Локали

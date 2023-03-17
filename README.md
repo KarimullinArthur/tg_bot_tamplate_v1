@@ -20,9 +20,7 @@ Min Telegram Tamplate v1
   
   - Удалить/Добавить админа
 
-<br>
 [Настройка сервера](./crib_for_setting_server.md)
-<br>
 
 Readmap
 - [ ] Вебхук

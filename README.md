@@ -2,7 +2,7 @@ Min Telegram Tamplate v1
 ========================
 Небольшой тэмплэйт с psycopg2 и aiogram2
 
-(Настройка сервера)[./crib_for_setting_server.md]
+[Настройка сервера](./crib_for_setting_server.md)
 
 - Админка:
   - Рассылка

@@ -1,0 +1,15 @@
+[Unit]
+Description=Tg bot
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+User=bot
+
+WorkingDirectory=/opt/bot/src/
+ExecStart=/home/bot/.cache/pypoetry/virtualenvs/bot-OLcEYli9-py3.10/bin/python /opt/bot-tgbot/src/main.py
+
+[Install]
+WantedBy=multi-user.target
+

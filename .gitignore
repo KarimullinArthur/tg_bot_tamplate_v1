@@ -146,6 +146,7 @@ cython_debug/
 
 *.db
 backups/backup.txt
+crib/
 
 # My notes
 

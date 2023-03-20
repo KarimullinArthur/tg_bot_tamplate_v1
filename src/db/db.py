@@ -111,5 +111,16 @@ class Database:
     def remove_admin(self, tg_id):
         self.cur.execute(f"DELETE FROM admins WHERE tg_id = {tg_id}")
 
+    def add_img(self, file_id, name):
+        self.cur.execute("INSERT INTO file_id(file_id, name) VALUES(%s, %s)",
+                         (file_id, name))
+
+    def get_file_id(self, name):
+        self.cur.execute("SELECT file_id FROM file_id WHERE name = %s",
+                         (name,))
+
+        result = self.cur.fetchone()
+        return result[0]
+
 
 #db = Database('dbname=tmp_v1 user=arthur')

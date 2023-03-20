@@ -22,3 +22,9 @@ CREATE TABLE IF NOT EXISTS admins(
   id serial,
   tg_id bigint
 );
+
+CREATE TABLE IF NOT EXISTS file_id(
+    id serial,
+    name text,
+    file_id text
+);

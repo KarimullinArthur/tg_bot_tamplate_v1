@@ -145,7 +145,7 @@ dmypy.json
 cython_debug/
 
 *.db
-backups/backup.txt
+backups/export.txt
 crib/
 
 # My notes

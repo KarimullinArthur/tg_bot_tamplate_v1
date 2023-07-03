@@ -40,7 +40,8 @@ async def back(message: types.Message, state: FSMContext):
         await Distribution.check.set()
 
     if current_state in ('ReferralLinks:main_menu', 'Sponsors:main_menu',
-                         'AdminManagement:main_menu'):
+                         'AdminManagement:main_menu',
+                         'TextManagement:main_menu'):
         await message.answer(message.text,
                              reply_markup=keyboards.additional_func())
         await AdditionalFuncs.main_menu.set()

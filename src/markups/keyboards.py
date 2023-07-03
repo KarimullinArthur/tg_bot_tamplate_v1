@@ -16,6 +16,7 @@ text_button_additional_funcs = '⚙️Дополнительно'
 text_button_sponsors = '📈Обязка'
 text_button_referral_links = '👥Рефка'
 text_button_admins = '🔑Админы'
+text_button_texts_management = '📝Изменить тексты'
 text_button_export_db = '📦Экспорт БД'
 
 text_button_create_link = "➕Добавить ссылку"
@@ -25,6 +26,8 @@ text_button_my_links = "📄Мои ссылки"
 text_button_add_sponsor = "➕Добавить канал"
 text_button_delete_sponsor = "➖Удалить канал"
 text_button_sponsors_list = "📄Текущие каналы"
+
+text_button_text_management_welcome = 'Старт'
 
 text_button_add_admin = "➕Добавить админа"
 text_button_remove_admin = "➖Удалить админа"
@@ -100,11 +103,12 @@ def additional_func():
     sponsors = KeyboardButton(text_button_sponsors)
     referral_links = KeyboardButton(text_button_referral_links)
     admins = KeyboardButton(text_button_admins)
+    texts_management = KeyboardButton(text_button_texts_management)
     export_db = KeyboardButton(text_button_export_db)
     back = KeyboardButton(text_button_back)
 
     keyboard.row(sponsors, referral_links)
-    keyboard.row(admins, export_db)
+    keyboard.row(admins, texts_management, export_db)
     keyboard.add(back)
 
     return keyboard
@@ -132,6 +136,18 @@ def referral_links_list():
         link = InlineKeyboardButton(name, callback_data=name)
 
         keyboard.add(link)
+
+    return keyboard
+
+
+def text_management():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    welcome = KeyboardButton(text_button_text_management_welcome)
+    back = KeyboardButton(text_button_back)
+
+    keyboard.add(welcome)
+    keyboard.add(back)
 
     return keyboard
 

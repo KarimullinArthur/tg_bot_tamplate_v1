@@ -23,8 +23,15 @@ CREATE TABLE IF NOT EXISTS admins(
   tg_id bigint
 );
 
+CREATE TABLE IF NOT EXISTS texts(
+  id serial,
+  name char(25),
+  message_id int,
+  tg_id bigint
+);
+
 CREATE TABLE IF NOT EXISTS file_id(
-    id serial,
-    name text,
-    file_id text
+  id serial,
+  name text,
+  file_id text
 );

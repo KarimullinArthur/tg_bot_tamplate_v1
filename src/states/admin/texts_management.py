@@ -1,5 +1,7 @@
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 
-class TextManagement(StatesGroup):
+class TextsManagement(StatesGroup):
     main_menu = State()
+
+    welcome = State()

@@ -2,9 +2,8 @@ from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram import types
 from aiogram.dispatcher.filters import Text
 
-from loader import db
+from loader import db, bot
 from markups import keyboards
-from markups import texts
 from filters.sponsors import Sponsor
 from states.client.main_menu import ClientMain
 from utils.datetime import get_datetime
@@ -27,17 +26,21 @@ async def start(message: types.Message, state: FSMContext):
         db.set_user_activity(message.from_user.id, True)
 
     if await _check_subs(message):
-        await message.answer(texts.start,
-                             reply_markup=keyboards.main_menu(
-                                 message.from_user.id))
+        msg = db.get_text('welcome')
+        await bot.copy_message(message.chat.id,
+                               msg['chat_id'], msg['message_id'],
+                               reply_markup=keyboards.main_menu(
+                                   message.from_user.id))
         await ClientMain.main_menu.set()
 
 
 async def check_subs(callback: types.callback_query, state: FSMContext):
     if await _check_subs(callback.message):
-        await callback.message.answer(texts.start,
-                                      reply_markup=keyboards.main_menu(
-                                       callback.message.chat.id))
+        msg = db.get_text('welcome')
+        await bot.copy_message(callback.message.chat.id,
+                               msg['chat_id'], msg['message_id'],
+                               reply_markup=keyboards.main_menu(
+                                   callback.message.from_user.id))
         await ClientMain.main_menu.set()
 
 

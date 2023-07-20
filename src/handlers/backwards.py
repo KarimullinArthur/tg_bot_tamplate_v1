@@ -9,6 +9,7 @@ from states.client.main_menu import ClientMain
 from states.admin.distribution import Distribution
 from states.admin.additional_funcs import AdditionalFuncs
 from states.admin.referral_links import ReferralLinks
+from states.admin.texts_management import TextsManagement
 from states.admin.sponsors import Sponsors
 from states.admin.admin_management import AdminManagement
 
@@ -41,7 +42,7 @@ async def back(message: types.Message, state: FSMContext):
 
     if current_state in ('ReferralLinks:main_menu', 'Sponsors:main_menu',
                          'AdminManagement:main_menu',
-                         'TextManagement:main_menu'):
+                         'TextsManagement:main_menu'):
         await message.answer(message.text,
                              reply_markup=keyboards.additional_func())
         await AdditionalFuncs.main_menu.set()
@@ -50,6 +51,11 @@ async def back(message: types.Message, state: FSMContext):
         await message.answer(message.text,
                              reply_markup=keyboards.referral_links())
         await ReferralLinks.main_menu.set()
+
+    if current_state == 'TextsManagement:welcome':
+        await message.answer(message.text,
+                             reply_markup=keyboards.text_management())
+        await TextsManagement.main_menu.set()
 
     if current_state in ('AddSponsor:tg_id', 'AddSponsor:link',
                          'AddSponsor:name', 'DeleteSponsor:name'):

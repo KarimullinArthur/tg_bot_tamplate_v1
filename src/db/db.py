@@ -72,8 +72,31 @@ class Database:
         result = self.cur.fetchone()
         return result[0]
 
+    def edit_text(self, data, message_id, chat_id):
+        self.cur.execute(
+                f"UPDATE texts SET message_id = '{message_id}'\
+                        WHERE data = '{data}'")
+        self.cur.execute(
+                f"UPDATE texts SET chat_id = '{chat_id}'\
+                        WHERE data = '{data}'")
+
+    def get_text(self, target):
+        self.cur.execute(f"SELECT (message_id, chat_id) FROM texts\
+                            WHERE data = '{target}'")
+
+        result_sql = self.cur.fetchone()
+        result_sql = tuple(result_sql[0][1:-1].split(','))
+
+        result = {
+                'message_id': result_sql[0],
+                'chat_id': result_sql[1]
+                }
+
+        return result
+
     def add_sponsor(self, tg_id, link, name):
-        self.cur.execute("INSERT INTO sponsors(tg_id, link, name) VALUES(%s, %s, %s)",
+        self.cur.execute("INSERT INTO sponsors(tg_id, link, name)\
+                            VALUES(%s, %s, %s)",
                          (tg_id, link, name))
 
     def delete_sponsor(self, name):
@@ -123,4 +146,4 @@ class Database:
         return result[0]
 
 
-#db = Database('dbname=tmp_v1 user=arthur')
+# db = Database('dbname=tmp_v1 user=arthur')

@@ -7,15 +7,33 @@
 ssh-copy-id server
 ```
 
-Добавляем ключ в authorizedkeys, чтобы не вводить пароль:
+~Добавляем ключ в authorizedkeys, чтобы не вводить пароль:~
 ```
-sudo cat id_rsa.pub > authorized_keys
+sudo cat id_rsa.pub > authorized_keys~
 ```
 
-## Добавить юзера в судо
+```
+ssh-copy-id adress
+```
 
+
+## Создать юзера
+
+Создаём юзера, хомяка для него и устанавливаем пароль
+```
+sudo useradd -s /bin/bash user
+mkdir /home/user
+```
+```
+sudo passwd user
+```
+Добавляем юзера в судо
 ```
 sudo usermod -aG sudo user
+```
+
+```
+sudo chown -R
 ```
 
 

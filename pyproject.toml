@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tmp-v1"
-version = "1.0.0"
+version = "1.2.0"
 description = "Tamplate with aiogram2 and psycopg2"
 authors = ["Karimullin Arthur <KarimullinArthur@riseup.net>"]
 license = "MIT"

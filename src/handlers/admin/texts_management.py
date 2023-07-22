@@ -15,7 +15,8 @@ async def text_management(message: types.Message, state: FSMContext):
 
 
 async def welcome(message: types.Message, state: FSMContext):
-    await message.answer("test", reply_markup=keyboards.cancel())
+    await message.answer("Отправь мне новое сообщение",
+                         reply_markup=keyboards.cancel())
     await TextsManagement.welcome.set()
 
 
@@ -37,6 +38,6 @@ def register_text_management(dp: Dispatcher):
                                 state=TextsManagement.main_menu)
 
     dp.register_message_handler(get_value,
-                                content_types=('text', 'photo', 'video', 'gif',
-                                               'animation'),
+                                content_types=('text', 'photo', 'video',
+                                               'animation', 'sticker'),
                                 state=(TextsManagement.welcome, ))

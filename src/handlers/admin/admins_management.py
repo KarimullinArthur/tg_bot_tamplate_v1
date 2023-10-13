@@ -27,9 +27,14 @@ async def add_admin(message: types.Message, state: FSMContext):
 
 async def get_tg_id_for_add_admin_forward(message: types.Message,
                                           state: FSMContext):
-    db.add_admin(message.forward_from.id)
-    await message.reply('Готово', reply_markup=keyboards.admin_management())
-    await AdminManagement.main_menu.set()
+    try:
+        db.add_admin(message.forward_from.id)
+        await message.reply('Готово',
+                            reply_markup=keyboards.admin_management())
+        await AdminManagement.main_menu.set()
+    except AttributeError:
+        await message.answer(
+                "Аккаунт данного пользователя скрыт, отправь мне йд цифрами.")
 
 
 async def get_tg_id_for_add_admin(message: types.Message, state: FSMContext):
